@@ -1,4 +1,4 @@
-class E217(object):
+class E217:
     def containsDuplicate(self, nums: List[int]) -> bool:
         set1 = set()
         for num in nums:
