@@ -20,4 +20,3 @@ class E0503:
 a = E0503()
 print(a.reverseBits(-1))
 print(a.reverseBits(2147483647))
-
