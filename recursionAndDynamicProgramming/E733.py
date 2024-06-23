@@ -1,3 +1,5 @@
+from typing import List
+
 class E733:
     def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
         visited = set()
