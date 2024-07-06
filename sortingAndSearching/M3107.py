@@ -43,8 +43,22 @@ class M3107:
         else:
             return r
         
+    def randomizedQuickMakeMedianIterative(self, A: List)-> int:
+        p = 0
+        r = len(A) - 1
+        mdeium_index = len(A) // 2
+        q1 = q2 = r + 1
+        while mdeium_index not in range(q1, q2 + 1):
+            q1, q2 = self.randomizedPartition(A, p, r)
+            if q1 > mdeium_index:
+                r = q1 - 1
+            else:
+                p = q2 + 1
+
+        return mdeium_index
+        
     def minOperationsToMakeMedianKQuick(self, nums: List, k: int) -> int:
-        q = self.randomizedQuickMakeMedian(nums, 0, len(nums) - 1)
+        q = self.randomizedQuickMakeMedianIterative(nums)
         num_ops = 0
         for i in range(q + 1):
             num_ops += max(nums[i] - k, 0)
