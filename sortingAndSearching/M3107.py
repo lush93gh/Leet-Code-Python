@@ -1,6 +1,57 @@
 from typing import List
+import random
 
 class M3107:
+    def exchange(self, A: List, i: int, j: int):
+        tmp = A[i]
+        A[i] = A[j]
+        A[j] = tmp
+
+    def partition(self, A: List, p: int, r: int) -> tuple[int, int]:
+        pivot = A[r]
+        i = p -1
+        q1 = r
+        for j in range(p, r):
+            if A[j] == pivot:
+                while q1 > j and A[q1] == pivot:
+                    q1 -= 1
+                self.exchange(A, j, q1)
+            if A[j] < pivot:
+                i += 1
+                self.exchange(A, i, j)
+        num_pivot = r - q1 + 1
+        for index in range(i + 1, i + 1 + num_pivot):
+            offset = index - (i + 1)
+            self.exchange(A, index, q1 + offset)
+        return i + 1, (i + 1 + num_pivot - 1)
+    
+    def randomizedPartition(self, A: List, p: int, r: int) -> tuple[int, int]:
+        i = random.randint(p, r)
+        self.exchange(A, i, r)
+        return self.partition(A, p, r)
+    
+    def randomizedQuickMakeMedian(self, A: List, p: int, r: int)-> int:
+        if p < r:
+            mdeium_index = len(A) // 2
+            q1, q2 = self.randomizedPartition(A, p, r)
+            if q1 <= mdeium_index and mdeium_index <= q2:
+                return mdeium_index
+            elif q1 > mdeium_index:
+                return self.randomizedQuickMakeMedian(A, p, q1 - 1)
+            else:
+                return self.randomizedQuickMakeMedian(A, q2 + 1, r)
+        else:
+            return r
+        
+    def minOperationsToMakeMedianKQuick(self, nums: List, k: int) -> int:
+        q = self.randomizedQuickMakeMedian(nums, 0, len(nums) - 1)
+        num_ops = 0
+        for i in range(q + 1):
+            num_ops += max(nums[i] - k, 0)
+        for i in range(q, len(nums)):
+            num_ops += max(k - nums[i], 0)
+        return num_ops
+    
     def minOperationsToMakeMedianKShort(self, nums: List[int], k: int) -> int:
         list_size = len(nums)
         nums.sort()
@@ -41,7 +92,8 @@ class M3107:
 # a = list(map(lambda x: x - 1, a))
 # print(a)
 a = M3107()
-print(a.minOperationsToMakeMedianK([2,5,6,8,5], 4))
-print(a.minOperationsToMakeMedianK([2,5,6,8,5], k = 7))
-print(a.minOperationsToMakeMedianK([1,2,3,4,5,6], k = 4))
-print(a.minOperationsToMakeMedianK([45,50,89,30,4,5,91,58], k = 31)) # 33
+print(a.minOperationsToMakeMedianKQuick([2,5,6,8,5], 4))
+print(a.minOperationsToMakeMedianKQuick([2,5,6,8,5], k = 7))
+print(a.minOperationsToMakeMedianKQuick([1,2,3,4,5,6], k = 4))
+print(a.minOperationsToMakeMedianKQuick([45,50,89,30,4,5,91,58], k = 31)) # 33
+print(a.minOperationsToMakeMedianKQuick([1,1,1,1,1,1,1,1,1,1,1,1,1,1], k = 2)) 
