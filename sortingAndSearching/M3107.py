@@ -33,13 +33,13 @@ class M3107:
     def randomizedQuickMakeMedian(self, A: List, p: int, r: int)-> int:
         if p < r:
             mdeium_index = len(A) // 2
-            q1, q2 = self.randomizedPartition(A, p, r)
-            if q1 <= mdeium_index and mdeium_index <= q2:
+            q, t = self.randomizedPartition(A, p, r)
+            if mdeium_index in range(q, t + 1):
                 return mdeium_index
-            elif q1 > mdeium_index:
-                return self.randomizedQuickMakeMedian(A, p, q1 - 1)
+            elif q > mdeium_index:
+                return self.randomizedQuickMakeMedian(A, p, q - 1)
             else:
-                return self.randomizedQuickMakeMedian(A, q2 + 1, r)
+                return self.randomizedQuickMakeMedian(A, t + 1, r)
         else:
             return r
         
@@ -47,13 +47,13 @@ class M3107:
         p = 0
         r = len(A) - 1
         mdeium_index = len(A) // 2
-        q1 = q2 = r + 1
-        while mdeium_index not in range(q1, q2 + 1):
-            q1, q2 = self.randomizedPartition(A, p, r)
-            if q1 > mdeium_index:
-                r = q1 - 1
+        q = t = r + 1
+        while mdeium_index not in range(q, t + 1):
+            q, t = self.randomizedPartition(A, p, r)
+            if q > mdeium_index:
+                r = q - 1
             else:
-                p = q2 + 1
+                p = t + 1
 
         return mdeium_index
         
