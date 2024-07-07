@@ -8,15 +8,15 @@ class M3107:
         A[j] = tmp
 
     def partition(self, A: List, p: int, r: int) -> tuple[int, int]:
-        pivot = A[r]
+        x = A[r]
         i = p -1
         q1 = r
         for j in range(p, r):
-            if A[j] == pivot:
-                while q1 > j and A[q1] == pivot:
+            if A[j] == x:
+                while q1 > j and A[q1] == x:
                     q1 -= 1
                 self.exchange(A, j, q1)
-            if A[j] < pivot:
+            if A[j] < x:
                 i += 1
                 self.exchange(A, i, j)
         num_pivot = r - q1 + 1
