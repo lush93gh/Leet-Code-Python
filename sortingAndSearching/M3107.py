@@ -9,21 +9,20 @@ class M3107:
 
     def partition(self, A: List, p: int, r: int) -> tuple[int, int]:
         x = A[r]
-        i = p -1
-        q1 = r
+        q = p - 1
+        t = p - 1
         for j in range(p, r):
             if A[j] == x:
-                while q1 > j and A[q1] == x:
-                    q1 -= 1
-                self.exchange(A, j, q1)
+                t += 1
+                self.exchange(A, t, j)
             if A[j] < x:
-                i += 1
-                self.exchange(A, i, j)
-        num_pivot = r - q1 + 1
-        for index in range(i + 1, i + 1 + num_pivot):
-            offset = index - (i + 1)
-            self.exchange(A, index, q1 + offset)
-        return i + 1, (i + 1 + num_pivot - 1)
+                q += 1
+                self.exchange(A, q, j)
+                t += 1
+                self.exchange(A, t, j)
+        t += 1
+        self.exchange(A, t, r)
+        return q + 1, t + 1
     
     def randomizedPartition(self, A: List, p: int, r: int) -> tuple[int, int]:
         i = random.randint(p, r)
