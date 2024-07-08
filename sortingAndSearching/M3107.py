@@ -8,25 +8,23 @@ class M3107:
         A[j] = tmp
 
     def partition(self, A: List, p: int, r: int) -> tuple[int, int]:
-        x = A[r]
-        q = p - 1
-        t = p - 1
-        for j in range(p, r):
+        x = A[p]
+        q = p 
+        t = p
+        for j in range(p + 1, r + 1):
             if A[j] == x:
                 t += 1
                 self.exchange(A, t, j)
             if A[j] < x:
-                q += 1
                 self.exchange(A, q, j)
+                q += 1
                 t += 1
                 self.exchange(A, t, j)
-        t += 1
-        self.exchange(A, t, r)
-        return q + 1, t + 1
+        return q, t 
     
     def randomizedPartition(self, A: List, p: int, r: int) -> tuple[int, int]:
         i = random.randint(p, r)
-        self.exchange(A, i, r)
+        self.exchange(A, i, p)
         return self.partition(A, p, r)
     
     def randomizedQuickMakeMedian(self, A: List, p: int, r: int)-> int:
