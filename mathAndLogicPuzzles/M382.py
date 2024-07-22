@@ -1,4 +1,5 @@
 from typing import Optional
+from ListNode import ListNode
 import random
 
 class M382:
