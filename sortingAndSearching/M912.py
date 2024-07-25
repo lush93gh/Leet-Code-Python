@@ -1,10 +1,10 @@
 from typing import List
-import QuickSort
-import HeapSort
+from QuickSort import QuickSort
+from HeapSort import HeapSort
 
 class M912:
     def sortArray(self, nums: List[int]) -> List[int]:
-        sorter = QuickSort.QuickSort() if len(nums) < 10**4 else HeapSort.HeapSort()
+        sorter = QuickSort() if len(nums) < 10**4 else HeapSort()
         return sorter.sort(nums)
     
 a = M912()
