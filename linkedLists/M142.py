@@ -3,7 +3,7 @@
 #     def __init__(self, x):
 #         self.val = x
 #         self.next = None
-
+from typing import Optional
 class M142:
     def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
         slow = head
