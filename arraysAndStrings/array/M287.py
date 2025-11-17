@@ -107,7 +107,6 @@ class M287:
                 ans += (1 << b)
         return ans
 
-
     
 a = M287()
 print(a.findDuplicate([1,3,4,2,2])) # 2
