@@ -2,7 +2,7 @@ from typing import List
 import queue
 
 class M695:
-    def maxAreaOfIslandBFS(self, grid: List[List[int]]) -> int:
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
         m = len(grid)
         n = len(grid[0])
         visited = set()
@@ -55,7 +55,7 @@ class M695:
             return 0
 
 
-    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+    def maxAreaOfIslandDFS(self, grid: List[List[int]]) -> int:
         self.grid = grid
         m = len(grid)
         n = len(grid[0])
@@ -69,5 +69,34 @@ class M695:
                     current_area = self.dfs(i, j)
                     if current_area > max_area:
                         max_area = current_area
+
+    def maxAreaOfIslandDFSIterative(self, grid: List[List[int]]) -> int:
+        m = len(grid)
+        n = len(grid[0])
+        stack = []
+        visited = set()
+        max_area = 0
+        for i in range(m):
+            for j in range(n):
+                current_area = 0
+                if grid[i][j] == 1 and (i, j) not in visited:
+                    stack.append((i , j))
+                    visited.add((i, j))
+                    while len(stack) > 0:
+                        x, y = stack.pop()
+                        current_area += 1
+
+                        up = x - 1
+                        down = x + 1
+                        left = y - 1
+                        right = y + 1
+                        for a, b in ((up, y), (down, y), (x, left), (x, right)):
+                            if a>=0 and a < m and b >= 0 and b < n and grid[a][b] == 1 and (a, b) not in visited:
+                                stack.append((a, b))
+                                visited.add((a, b))
+
+                max_area = max(max_area, current_area)
+
+        return max_area
 
         return max_area
