@@ -29,8 +29,9 @@ class Counting:
             file_counter[file_name] = file_count + 1
         
         file_counter_sorted = {k: v for k, v in sorted(file_counter.items(), key=lambda x: -x[1])}
-        for k, v in file_counter_sorted.items():
-            print(k, v)
+        for idx, (k, v) in enumerate(file_counter_sorted.items()):
+            if idx < 3:
+                print(k, v)
 
 a = Counting()
 a.count(urls = [
